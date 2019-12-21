@@ -1,6 +1,10 @@
 package com.launchpad.anshul.psych.model.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "Player")
@@ -8,7 +12,7 @@ public class Player {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -22,11 +26,19 @@ public class Player {
     @Column(name = "pic")
     private String pic;
 
-    public String getId() {
+    @CreationTimestamp
+    @Column(name = "created_at")
+    private Date createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "modified_at")
+    private Date lastmodifiedAt;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -60,5 +72,21 @@ public class Player {
 
     public void setPic(String pic) {
         this.pic = pic;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getLastmodifiedAt() {
+        return lastmodifiedAt;
+    }
+
+    public void setLastmodifiedAt(Date lastmodifiedAt) {
+        this.lastmodifiedAt = lastmodifiedAt;
     }
 }

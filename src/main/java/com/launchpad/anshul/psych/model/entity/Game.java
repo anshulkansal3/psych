@@ -1,6 +1,10 @@
 package com.launchpad.anshul.psych.model.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -9,7 +13,7 @@ public class Game {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -40,13 +44,20 @@ public class Game {
     @JoinColumn(name = "id")
     private GameMode gameMode;
 
-    @
+    @CreationTimestamp
+    @Column(name = "created_at")
+    private Date createdAt;
 
-    public String getId() {
+    @UpdateTimestamp
+    @Column(name = "modified_at")
+    private Date lastmodifiedAt;
+
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -96,5 +107,37 @@ public class Game {
 
     public void setLeaderId(Player leaderId) {
         this.leaderId = leaderId;
+    }
+
+    public boolean isOver() {
+        return isOver;
+    }
+
+    public void setOver(boolean over) {
+        isOver = over;
+    }
+
+    public GameMode getGameMode() {
+        return gameMode;
+    }
+
+    public void setGameMode(GameMode gameMode) {
+        this.gameMode = gameMode;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getLastmodifiedAt() {
+        return lastmodifiedAt;
+    }
+
+    public void setLastmodifiedAt(Date lastmodifiedAt) {
+        this.lastmodifiedAt = lastmodifiedAt;
     }
 }

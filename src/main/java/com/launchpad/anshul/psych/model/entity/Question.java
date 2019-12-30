@@ -1,70 +1,42 @@
 package com.launchpad.anshul.psych.model.entity;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import com.launchpad.anshul.psych.Constants;
+import com.launchpad.anshul.psych.model.enums.GameMode;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name = "Question")
-public class Question {
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Question extends Auditable {
 
-    @Column(name = "question")
-    private String question;
+    @NotBlank
+    @Getter
+    @Setter
+    @Column(length = Constants.MAX_ANSWER_LENGTH)
+    private String questionText;
 
-    @Column(name = "answer")
-    private String answer;
+    @NotBlank
+    @Getter
+    @Setter
+    private String correctAnswer;
 
-    @CreationTimestamp
-    @Column(name = "created_at")
-    private Date createdAt;
+    @NotNull
+    @Getter
+    @Setter
+    private GameMode gameMode;
 
-    @UpdateTimestamp
-    @Column(name = "modified_at")
-    private Date lastmodifiedAt;
+    @OneToMany(mappedBy = "question")
+    @Getter
+    @Setter
+    private List<EllenAnswer> ellenAnswers;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getLastmodifiedAt() {
-        return lastmodifiedAt;
-    }
-
-    public void setLastmodifiedAt(Date lastmodifiedAt) {
-        this.lastmodifiedAt = lastmodifiedAt;
-    }
 }

@@ -1,49 +1,30 @@
 package com.launchpad.anshul.psych.model.entity;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import com.launchpad.anshul.psych.Constants;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "allen_answer")
-public class EllenAnswer {
+@Table(name = "ellen_answer")
+public class EllenAnswer extends Auditable {
+    @ManyToOne
+    @Getter
+    @Setter
+    private Question question;
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Getter
+    @Setter
+    @NotBlank
+    @Column(length = Constants.MAX_ANSWER_LENGTH)
+    private String answer;
 
-    @CreationTimestamp
-    @Column(name = "created_at")
-    private Date createdAt;
-
-    @UpdateTimestamp
-    @Column(name = "modified_at")
-    private Date lastmodifiedAt;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getLastmodifiedAt() {
-        return lastmodifiedAt;
-    }
-
-    public void setLastmodifiedAt(Date lastmodifiedAt) {
-        this.lastmodifiedAt = lastmodifiedAt;
-    }
+    @Getter
+    @Setter
+    private Long votes = 0L;
 }
